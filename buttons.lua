@@ -19,16 +19,15 @@ function class.newBtn(params)
 	local bg = display.newRoundedRect(0,0,width,height,5);
 	bg:setFillColor(bgColor[1],bgColor[2],bgColor[3]);
 
-	--position the bg
+	--position the digits of bg to the centre
 	bg:setReferencePoint(display.CenterReferencePoint);
 	bg.x , bg.y = 0,0;
 	--insert the background to the button group:insert
 	btn:insert(bg);
 
-	--create the button's label
+	--create the button's label colour
 	local label = display.newText(labelTxt,0,0, native.systemFont, 30)
-	label:setTextColor(txtColor[1],txtColor[2],txtColor[3]);
-        
+	label:setTextColor(txtColor[1],txtColor[2],txtColor[3]); 
 
 	--position the label within the Button
 	label:setReferencePoint(display.CenterReferencePoint);

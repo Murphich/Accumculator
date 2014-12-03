@@ -1,11 +1,12 @@
-Accumculator
-============
-
- A Calculator designed in Lua to calculate bet stake accumulators
-
 -------------------------------------------
---Text HomePage
+--the buttons handlers
 -------------------------------------------
+local function numBtnTapped(event)
+--handles the number buttons ('1'-'9')
+	local targetID = event.target.id;
+	print("You pressed "..targetID);
+	return true;
+end
 
 myText = display.newText("Accumculator", 40, 10, native.systemFont, 35)
 myText:setFillColor(100,150,50)
@@ -31,23 +32,6 @@ buttonPanel.x , buttonPanel.y = display.contentWidth * 0.5 , display.contentHeig
 --array to hold all the buttons
 local btns = {};
 -------------------------------------------
--- the Qlink buttons
--------------------------------------------
---[[
-local cols = 1;
-local rows = 1;
-local currentRow, currentCol = 0, 4
-
-for j=0, 4 do
-    local btnSets = {}
-    --add text to layout
-    btnSets.labelTxt = j;
-    --create button and put it in the array
-    --btns[#btns + 1] = btnClass.newQlinkBtn(btnSets);
-
-end
-]]
--------------------------------------------
 --the number buttons
 -------------------------------------------
 --positioning variables
@@ -55,7 +39,7 @@ local padding = 20;
 local rowSpacing = 100;
 local colSpacing = 100;
 local cols = 3; -- specify number of columns
-local currentRow , currentCol = 0 , 4; --help us positioning the num buttons (4 gets rid of 0 rather than 3)
+local currentRow , currentCol = 0 , 3; --help us positioning the num buttons (4 gets rid of 0 rather than 3)
 
 for i=0 , 9 do
 	local btnParams = {};
@@ -65,19 +49,28 @@ for i=0 , 9 do
 
 	--create the button and put it in the array
 	btns[#btns + 1] = btnClass.newNumBtn(btnParams);
-
+        
+        --we need to identify each button later, so we'll create a unique id for each one;
+	btns[#btns].id = i;
+        
+        --add event listener to outline the number tapped.
+        btns[#btns]:addEventListener("tap",numBtnTapped);
+	    
 	 --any other num button (1-9); 
          --Display col and row spacing
 	btns[#btns].x, btns[#btns].y =  currentCol * colSpacing - 100, currentRow * rowSpacing + 245;
 	
 	--insert the new button into the panel
 	buttonPanel:insert(btns[#btns]);
-
+        
+        --increment the columns
 	currentCol = currentCol + 1;
-	if currentCol >= cols then currentCol = 0; 
+	if currentCol >= cols then 
+            currentCol = 0; 
         end
 
-	if (currentCol % 3 == 0) then currentRow = currentRow -1; 
+	if (currentCol % 3 == 0) then 
+            currentRow = currentRow -1; 
         end
         
 end
